@@ -67,12 +67,8 @@ Get your AI-Powered Vacation Planner running in 5 minutes!
 Before you begin, ensure you have the following installed:
 
 1. **[VSCode](https://code.visualstudio.com/download)**
-2. **Python 3.11.9** (Recommended: 3.10 to 3.13)
-   - Download: https://www.python.org/downloads/
-
-3. **AWS CLI**
-   - Installation Guide: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
-
+2. **[Python 3.11.9](https://www.python.org/downloads/)** (Recommended: 3.10 to 3.13)
+3. **[AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)**
 4. **AWS IAM Role**
    - Set up IAM role for AWS CLI with appropriate permissions
    - Ensure access to Amazon Bedrock models (verify from AWS Console)
