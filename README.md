@@ -52,9 +52,40 @@ Here it will be the architecture diagram...
 
 ---
 
-## 📞 Get Started
+## 🚀 Quick Start Guide
+
+Get your AI-Powered Vacation Planner running in 5 minutes!
+
+### Table of Contents
+- [Prerequisites](#prerequisites)
+
+### Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+1. **VSCode**
+   - Download: https://code.visualstudio.com/download
+
+2. **Python 3.11.9** (Recommended: 3.10 to 3.13)
+   - Download: https://www.python.org/downloads/
+
+3. **AWS CLI**
+   - Installation Guide: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+
+4. **AWS IAM Role**
+   - Set up IAM role for AWS CLI with appropriate permissions
+   - Ensure access to Amazon Bedrock models (verify from AWS Console)
 
 ### Quick Start
+
+#### Step 1: Clone the repository
+
+Clone the repository in the desired local path.
+
+```bash
+# Install virtualenv globally
+pip install virtualenv
+```
 
 1. **Clone the repository**
 2. **Set up your environment** (see README.md)
