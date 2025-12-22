@@ -117,149 +117,9 @@ Our application employs a team of specialized AI agents, each with distinct role
 
 ---
 
-## 🎨 Key Features
-
-### 🤖 AI-Driven Intelligence
-
-**Natural Language Understanding**
-- Communicate your vacation desires in plain English
-- No need for complex forms or rigid templates
-- AI understands context, preferences, and constraints
-
-**Contextual Recommendations**
-- Suggestions based on your specific interests
-- Seasonal and weather-aware planning
-- Cultural sensitivity and local customs awareness
-
-**Continuous Learning**
-- System improves with each interaction
-- Adapts to feedback and preferences
-- Stays current with travel trends
-
-### 🌐 Web-Powered Research
-
-**Real-Time Information**
-- Live web searches for current data
-- Access to thousands of travel resources
-- Verification from multiple sources
-
-**Comprehensive Coverage**
-- Destination guides and local insights
-- Restaurant reviews and dining options
-- Accommodation comparisons
-- Transportation alternatives
-- Activity bookings and event schedules
-
-### 📊 Smart Planning
-
-**Budget Optimization**
-- Detailed cost breakdowns
-- Price comparison across options
-- Money-saving recommendations
-- Hidden cost identification
-
-**Time Management**
-- Realistic daily schedules
-- Travel time calculations
-- Buffer time for flexibility
-- Peak hour avoidance
-
-**Logistics Coordination**
-- Transportation between locations
-- Accommodation check-in/check-out timing
-- Reservation recommendations
-- Booking reference organization
-
-### 🎯 Personalization
-
-**Interest-Based Curation**
-- Activities aligned with your hobbies
-- Dining options matching dietary preferences
-- Pace suited to your travel style (relaxed vs. packed)
-- Age-appropriate recommendations
-
-**Flexibility Options**
-- Alternative suggestions for each day
-- "Must-do" vs. "nice-to-have" distinctions
-- Easy-to-modify templates
-- Backup plans for weather contingencies
-
-### 🖥️ User Interfaces
-
-**Streamlit Web Application**
-- Beautiful, intuitive interface
-- Interactive controls and inputs
-- Real-time progress tracking
-- Downloadable itineraries
-
-**Command-Line Interface**
-- Perfect for developers and power users
-- Scriptable and automatable
-- Fast execution
-- Detailed logging
-
-**API Endpoint (Production)**
-- RESTful API for integration
-- JSON request/response format
-- Scalable serverless architecture
-- Enterprise-ready deployment
-
----
-
 ## 🏗️ Technical Architecture
 
-### Technology Stack
-
-**AI & Machine Learning**
-- Amazon Bedrock (Nova Pro v1.0)
-- CrewAI Framework
-- Multi-agent orchestration
-- Natural language processing
-
-**Backend**
-- Python 3.11
-- AWS Lambda (Serverless)
-- AWS API Gateway
-- boto3 (AWS SDK)
-
-**Frontend**
-- Streamlit
-- Modern responsive design
-- Real-time updates
-- Interactive components
-
-**Infrastructure**
-- AWS Cloud Platform
-- Docker containerization
-- Amazon ECR
-- AWS ECS/Fargate
-- CloudWatch monitoring
-
-**Development Tools**
-- VSCode
-- Git version control
-- pytest for testing
-- uv package manager
-
-### Architecture Highlights
-
-**Scalable & Serverless**
-- Auto-scaling based on demand
-- Pay-per-use pricing model
-- Zero maintenance overhead
-- High availability
-
-**Secure**
-- AWS IAM role-based access
-- Secrets Manager for credentials
-- Encrypted data in transit
-- Compliance-ready
-
-**Observable**
-- CloudWatch logs and metrics
-- Real-time monitoring
-- Performance dashboards
-- Error alerting
+Here it will be the architecture diagram...
 
 ---
 
@@ -270,9 +130,9 @@ Our application employs a team of specialized AI agents, each with distinct role
 **Step 1: Input Preferences**
 ```
 👤 User provides:
+   - Destinarion name
    - Destination type (beach, mountain, city, cultural)
-   - Budget range
-   - Trip duration
+   - Trip duration and date
    - Personal interests and preferences
 ```
 
@@ -330,43 +190,6 @@ Day 2: Water Activities
 📝 Recommended Bookings: [links provided]
 ⚠️ Travel Tips: Best time to visit, what to pack, local customs
 ```
-
----
-
-## 🔮 Future Enhancements
-
-### Planned Features
-
-**Phase 2: Enhanced Personalization**
-- User preference learning
-- Travel history analysis
-- Predictive recommendations
-- Collaborative filtering
-
-**Phase 3: Booking Integration**
-- Direct hotel reservations
-- Flight booking
-- Activity tickets
-- Restaurant reservations
-- One-click trip booking
-
-**Phase 4: Social Features**
-- Share itineraries
-- Collaborative planning
-- Trip reviews and ratings
-- Community recommendations
-
-**Phase 5: Mobile Applications**
-- iOS and Android apps
-- Offline access
-- Real-time updates during trip
-- GPS-based suggestions
-
-**Phase 6: Advanced Intelligence**
-- Visual travel planning (image-based)
-- Video travel guides
-- Voice interface
-- AR/VR previews
 
 ---
 

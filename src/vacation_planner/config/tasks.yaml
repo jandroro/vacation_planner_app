@@ -1,18 +1,190 @@
-# Configuration for tasks in the vacation planner project.
-research_task:
+destination_research:
   description: >
-    Conduct thorough research about the travel destination {topic}.
-    Find interesting and relevant information to enrich the travel experience.
+    Conduct comprehensive research on potential vacation destinations based on the 
+    following user preferences:
+    
+    - Destination Name: {topic}
+    - Destination Type: {destination_type}
+    - Duration: {duration}
+    - Interests: {interests}
+    - Travel Dates: {travel_dates}
+    
+    Your research must include:
+    
+    1. DESTINATION OPTIONS (3-5 recommendations):
+       - Location names and brief descriptions
+       - Why each destination matches user preferences
+       - Best time to visit and current seasonal considerations
+       - Overall vibe and atmosphere
+    
+    2. CURRENT INFORMATION:
+       - Real-time weather patterns and climate
+       - Current travel advisories and safety information
+       - Visa requirements and entry regulations
+       - COVID-19 or health-related requirements
+       - Local events and festivals during travel dates
+    
+    3. ATTRACTIONS & ACTIVITIES:
+       - Top attractions aligned with user interests
+       - Hidden gems and off-the-beaten-path locations
+       - Accessibility information for all recommendations
+    
+    4. ACCOMMODATION OPTIONS:
+       - Recommended hotels, hostels, or rentals
+       - Locations with good access to attractions
+       - Properties that match travel style
+       - Current pricing and availability trends
+    
+    5. DINING & CUISINE:
+       - Local food specialties to try
+       - Restaurant recommendations (budget to upscale)
+       - Options for dietary restrictions
+       - Food markets and authentic dining experiences
+    
+    6. PRACTICAL INFORMATION:
+       - Transportation options (airports, local transit)
+       - Estimated costs for activities and meals
+       - Local customs and cultural etiquette
+       - Language considerations and useful phrases
+       - Currency and payment methods
+       - Safety tips and areas to avoid
+    
+    Use web search tools to gather current, accurate information. Compare multiple 
+    sources to ensure reliability. Prioritize recent information (last 6 months) for 
+    pricing and conditions.
+    
   expected_output: >
-    A list of 15 bullet points highlighting the most important and exciting facts about {topic}.
+    A comprehensive research report (1500-2000 words) with:
+    - Executive summary of top 3 destination recommendations
+    - Detailed analysis of each recommended destination
+    - Comparison table of key factors (cost, activities, accessibility, etc.)
+    - Current travel advisory information
+    - Season-specific insights
+    - Practical planning information
+    - List of verified sources used
+    
+    The report should be well-organized, easy to scan, and provide all information 
+    needed for the planning phase. Include specific data points like average costs, 
+    temperature ranges, and activity durations where available.
+
   agent: vacation_researcher
 
-reporting_task:
+itinerary_creation:
   description: >
-    Review the research findings and create a detailed report about {topic}.
+    Based on the research report, create a detailed, optimized day-by-day vacation 
+    itinerary for {duration} that maximizes enjoyment. The itinerary must be for the destination that best matches user preferences.
+    
+    User context:
+    - Interests: {interests}
+    - Travel style: {travel_style}
+    - Travel dates: {travel_dates}
+    
+    Your itinerary must include:
+    
+    1. DAY-BY-DAY BREAKDOWN:
+       For each day, provide:
+       - Morning activities (with start times and duration)
+       - Lunch recommendations (with price range and dietary options)
+       - Afternoon activities (with timing)
+       - Evening activities and dinner (with recommendations)
+       - Estimated daily budget breakdown
+       - Transportation between locations (mode, duration, cost)
+       - Rest/free time buffers
+    
+    2. OPTIMIZATION REQUIREMENTS:
+       - Group geographically close activities together
+       - Consider opening hours and optimal visiting times
+       - Balance active days with relaxation time
+       - Include realistic travel times between locations
+       - Account for meal times and breaks
+       - Avoid backtracking or inefficient routing
+       - Mix popular attractions with hidden gems
+    
+    3. ACCOMMODATION PLAN:
+       - Specific hotel/accommodation recommendations
+       - Location justification (proximity to activities)
+       - Booking strategy and timing
+       - Estimated costs per night
+       - Check-in/check-out optimization
+    
+    4. TRANSPORTATION PLAN:
+       - Airport transfers
+       - Local transportation method for each day
+       - Any day trips or inter-city travel
+       - Rental car needs (if applicable)
+       - Public transit passes or cards to purchase
+    
+    5. BUDGET BREAKDOWN:
+       - Accommodation total
+       - Transportation total  
+       - Activities and attractions total
+       - Meals total (breakfast, lunch, dinner separately)
+       - Miscellaneous/contingency fund
+       - Daily spending estimates
+       - Money-saving tips and alternatives
+    
+    6. PRACTICAL DETAILS:
+       - Pre-trip preparations and bookings needed
+       - What to pack based on activities and weather
+       - Reservation recommendations (restaurants, tours)
+       - Emergency contacts and important numbers
+       - Offline maps and apps to download
+    
+    The itinerary should read like a professional travel agent's work—detailed, 
+    thoughtful, and anticipating traveler needs. Include specific names, addresses, 
+    and timing throughout.
+    
   expected_output: >
-    A fully fledged report summarizing key information about {topic},
-    formatted in Markdown without using code block syntax (do not use triple backticks).
-  agent: itinerary_planner
-  output_file: report.md
-  output_format: markdown
+    A complete, professional vacation itinerary (3000-4000 words) formatted as:
+    
+    VACATION ITINERARY: [Destination Name]
+    
+    OVERVIEW
+    - Trip duration and dates: {travel_dates}
+    - Total estimated budget with breakdown
+    - Accommodation summary
+    - Transportation summary
+    
+    PRE-TRIP CHECKLIST
+    - What to book now
+    - What to pack
+    - Apps and resources to download
+    
+    DAILY ITINERARY
+    Day 1: [Theme]
+      Morning (8:00 AM - 12:00 PM)
+        - Activity details with times, locations, costs
+      Lunch (12:00 PM - 1:30 PM)
+        - Restaurant recommendation with details
+      Afternoon (2:00 PM - 6:00 PM)
+        - Activities with full details
+      Evening (6:00 PM - 10:00 PM)
+        - Dinner and evening activities
+      Daily Budget: $XXX
+      Transportation: Details
+      Notes: Special considerations
+    
+    [Repeat for each day]
+    
+    BUDGET SUMMARY
+    - Detailed cost breakdown
+    - Total trip cost
+    - Money-saving alternatives
+    - Contingency recommendations
+    
+    BOOKING REFERENCE
+    - Priority bookings with links
+    - Recommended booking timeline
+    
+    TRAVEL TIPS
+    - Local customs and etiquette
+    - Safety considerations
+    - Language help
+    - Emergency contacts
+    
+    The itinerary should be immediately actionable—a traveler should be able to 
+    follow it step-by-step without additional research.
+
+  agent: vacation_planner
+  context:
+    - destination_research
