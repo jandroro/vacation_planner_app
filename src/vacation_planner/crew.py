@@ -28,6 +28,7 @@ class VacationPlanner():
         # Note: Do not add region attribute (not supported by Bedrock Nova as it is cross-region)
         self.llm = LLM(
             model=os.getenv("MODEL", "bedrock/us.amazon.nova-pro-v1:0"),
+            temperature=0.1,
         )
         
         # Initialize tools for web research and information gathering

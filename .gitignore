@@ -10,3 +10,4 @@ env/
 *.log
 uv.lock
 *.lock
+vacation_plan_**.md
