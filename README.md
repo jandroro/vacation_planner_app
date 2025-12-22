@@ -238,11 +238,11 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 📧 Contact & Support
 
-**Project Maintainer:** [Your Name]
-**Email:** [your.email@example.com]
-**GitHub:** [github.com/your-username/vacation-planner]
-**Documentation:** [docs.vacation-planner.ai]
-**Support:** [support@vacation-planner.ai]
+- **Project Maintainer:** [Jano Camacho]
+- **Email:** [jandro.training@gmail.com]
+- **GitHub:** [github.com/your-username/vacation-planner]
+- **Documentation:** [docs.vacation-planner.ai]
+- **Support:** [support@vacation-planner.ai]
 
 ---
 
@@ -264,6 +264,6 @@ Made with ❤️ using Amazon Bedrock, CrewAI, and Streamlit
 
 ---
 
-**Version:** 1.0.0  
-**Last Updated:** December 2025
-**Status:** Active Development 🚀
+- **Version:** 1.0.0  
+- **Last Updated:** December 2025
+- **Status:** Active Development 🚀
