@@ -165,22 +165,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-## 🙏 Acknowledgments
-
-**Technologies**
-- Amazon Web Services for Bedrock platform
-- CrewAI team for the amazing framework
-- Streamlit for the beautiful UI framework
-- Open-source community
-
-**Inspiration**
-- Every traveler who dreams of exploring the world
-- Travel bloggers sharing authentic experiences
-- Local guides preserving cultural heritage
-- Sustainable tourism advocates
-
----
-
 ## 📧 Contact & Support
 
 - **Project Maintainer:** Jano Camacho
