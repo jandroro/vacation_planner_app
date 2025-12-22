@@ -66,9 +66,7 @@ Get your AI-Powered Vacation Planner running in 5 minutes!
 
 Before you begin, ensure you have the following installed:
 
-1. **VSCode**
-   - Download: https://code.visualstudio.com/download
-
+1. **[VSCode](https://code.visualstudio.com/download)**
 2. **Python 3.11.9** (Recommended: 3.10 to 3.13)
    - Download: https://www.python.org/downloads/
 
