@@ -239,10 +239,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## 📧 Contact & Support
 
 - **Project Maintainer:** [Jano Camacho]
-- **Email:** [jandro.training@gmail.com]
-- **GitHub:** [github.com/your-username/vacation-planner]
-- **Documentation:** [docs.vacation-planner.ai]
-- **Support:** [support@vacation-planner.ai]
+- **LinkedIn:** [[jandro.training@gmail.com](https://www.linkedin.com/in/jano-camacho-vicente-96716893/)]
+- **Support:** [jandro.training@gmail.com]
 
 ---
 
