@@ -58,6 +58,9 @@ Get your AI-Powered Vacation Planner running in 5 minutes!
 
 ### Table of Contents
 - [Prerequisites](#prerequisites)
+- [Local Environment Setup](#local-environment-setup)
+- [Project Setup](#project-setup)
+- [Running the Project](#running-the-project)
 
 ### Prerequisites
 
@@ -76,7 +79,7 @@ Before you begin, ensure you have the following installed:
    - Set up IAM role for AWS CLI with appropriate permissions
    - Ensure access to Amazon Bedrock models (verify from AWS Console)
 
-### Quick Start
+### Local Environment Setup
 
 #### Step 1: Clone the repository
 
@@ -86,40 +89,81 @@ Clone the repository in the desired local path.
 
 Open the terminal and type the following:
 
-1. Install `uv`:
+1. **Install `uv`:**
 
 ```bash
 pip install uv
 ```
 
-Verify the CreAI installation:
-
-```bash
-uv --version
-```
-
-2. Run the following command to install CrewAI CLI:
+2. **Run the following command to install CrewAI CLI:**
 
 ```bash
 uv tool install crewai
 ```
 
-1. **Clone the repository**
-2. **Set up your environment** (see README.md)
-3. **Configure AWS credentials**
-4. **Run your first vacation plan**
-5. **Share your feedback**
+3. **Update your shell:**
 
-### Resources
+```bash
+uv tool update-shell
+```
 
-- 📚 [Full Documentation](README.md)
-- 🚀 [Deployment Guide](DEPLOYMENT_GUIDE.md)
-- 💻 [API Reference](#)
-- 🎥 [Video Tutorials](#)
-- 💬 [Community Forum](#)
-- 🐛 [Issue Tracker](#)
+4. **Verify that crewai is installed, run:**
 
----
+```bash
+uv tool list
+```
+
+### Project Setup
+
+#### Configure Environment Variables
+
+Create/update the `.env` file with the following:
+
+```env
+# AWS Credentials
+AWS_PROFILE=my_aws_cli_profile
+AWS_REGION_NAME=my_aws_cli_region_name
+
+# Model Configuration
+MODEL=bedrock/us.amazon.nova-pro-v1:0
+EMBEDDING_MODEL=amazon.titan-embed-text-v2:0
+
+# Serper API Key
+SERPER_API_KEY=my_serper_api_key
+
+# OpenAI API Key (if needed)
+OPENAI_API_KEY=my_openai_api_key
+```
+
+**Important:** Ensure you have access to the Bedrock model from the AWS Console.
+
+#### Install dependencies**
+
+Go to the folder on which the project was cloned and type the following:
+
+```bash
+# Lock dependencies
+crewai install
+
+# Add additional required packages
+uv add boto3
+uv add streamlit
+```
+
+### Running the Project
+
+**Option 1. Command Line Execution:**
+
+```bash
+crewai run
+```
+
+**Option 2. Streamlit UI:**
+
+```bash
+source .venv/bin/activate
+streamlit run streamlit_ui.py
+```
 
 ## 📜 License
 
