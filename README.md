@@ -82,9 +82,26 @@ Before you begin, ensure you have the following installed:
 
 Clone the repository in the desired local path.
 
+#### Step 2: CrewAI Installation
+
+Open the terminal and type the following:
+
+1. Install `uv`:
+
 ```bash
-# Install virtualenv globally
-pip install virtualenv
+pip install uv
+```
+
+Verify the CreAI installation:
+
+```bash
+uv --version
+```
+
+2. Run the following command to install CrewAI CLI:
+
+```bash
+uv tool install crewai
 ```
 
 1. **Clone the repository**
