@@ -60,9 +60,6 @@ class VacationPlanner():
                 self.website_search_tool
             ],
             verbose=True,
-            # allow_delegation=False,
-            # max_iter=15,
-            # memory=True
         )
 
     @agent
@@ -78,9 +75,6 @@ class VacationPlanner():
             config=self.agents_config['vacation_planner'],
             llm=self.llm,
             verbose=True,
-            # allow_delegation=False,
-            # max_iter=15,
-            # memory=True
         )
 
     @task
@@ -131,14 +125,4 @@ class VacationPlanner():
             tasks=self.tasks,    # Automatically uses all @task decorated methods
             process=Process.sequential,
             verbose=True,
-            # memory=True,
-            # embedder={
-            #     "provider": "amazon-bedrock",
-            #     "config": {
-            #         "model": os.getenv('EMBEDDING_MODEL', 'amazon.titan-embed-text-v1'),
-            #         "region_name": os.getenv('AWS_REGION_NAME', 'us-west-2')
-            #     }
-            # },
-            # max_rpm=10,  # Rate limiting for API calls
-            # share_crew=False
         )
