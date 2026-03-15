@@ -113,7 +113,7 @@ From the AgentCore Service console, deploy your Agentic AI application using the
 
 1. Inside the AWS Console, open de Bedrock AgentCore service and click on the `Runtime` option. Then click on the `Host agent/tool` button.
 
-[](./assets/agentcore_runtime_setup/step_01.png)
+![Step 01](./assets/agentcore_runtime_setup/step_01.png)
 
 ---
 
