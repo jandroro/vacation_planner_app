@@ -109,7 +109,11 @@ docker buildx build --platform linux/arm64 \
 
 ### Step 6 – Deploy via AgentCore Service
 
-From the AgentCore Service console, deploy your Agentic AI application using the Docker image pushed to ECR.
+From the AgentCore Service console, deploy your Agentic AI application using the Docker image pushed to ECR. For it, follow the next steps:
+
+1. Inside the AWS Console, open de Bedrock AgentCore service and click on the `Runtime` option. Then click on the `Host agent/tool` button.
+
+[](./assets/agentcore_runtime_setup/step_01.png)
 
 ---
 
