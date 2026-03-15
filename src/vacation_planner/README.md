@@ -115,11 +115,28 @@ From the AgentCore Service console, deploy your Agentic AI application using the
 
 ![Step 01](./assets/agentcore_runtime_setup/step_01.png)
 
-2. Place the next values in the `Agent or Tool details`:
+2. Place the next values in the `Agent or Tool details` section:
 - **Name:** vacation-planner-agent
 - **Description - optional:** Provides detailed vacation plan for a tourist location.
 
 ![Step 02](./assets/agentcore_runtime_setup/step_02.png)
+
+3. For the `Agent Source` section, click on the `ECR Container` option. Then select the latest ECR Image we created previously:
+
+![Step 03](./assets/agentcore_runtime_setup/step_03.png)
+
+4. In the `Permissions` section, click `Create and use a new service role`.
+
+![Step 04](./assets/agentcore_runtime_setup/step_04.png)
+
+5. For the `Inbound Auth` section, select the options shown in the following image:
+
+![Step 05](./assets/agentcore_runtime_setup/step_05.png)
+
+6. In the `Security` section, select the `Public` option. Then click `Host agent/tool` button.
+**Note:** For demonstration purposes, we have chosen this option; however, for production environments, it is best to select the `VPC (Virtual Private Cloud)` option.
+
+![Step 06](./assets/agentcore_runtime_setup/step_06.png)
 
 ---
 
