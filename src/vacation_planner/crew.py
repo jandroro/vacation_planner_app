@@ -4,6 +4,15 @@ from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import SerperDevTool, ScrapeWebsiteTool, WebsiteSearchTool
 
+# --------------------------------------------------
+# AGENTCORE IMPORTS
+# --------------------------------------------------
+
+from bedrock_agentcore.runtime import BedrockAgentCoreApp
+app = BedrockAgentCoreApp()
+
+# --------------------------------------------------
+
 @CrewBase
 class VacationPlanner():
     """
@@ -15,8 +24,6 @@ class VacationPlanner():
     This crew employs specialized AI agents working collaboratively to:
     - Research destinations with real-time information
     - Create optimized day-by-day itineraries
-    - Provide authentic local insights
-    - Optimize budgets and maximize value
     """
     
     agents_config = 'config/agents.yaml'
@@ -114,8 +121,6 @@ class VacationPlanner():
         Process Flow:
         1. Research Specialist gathers comprehensive destination information
         2. Planning Architect creates optimized itinerary
-        3. Local Expert enhances with authentic experiences
-        4. Budget Optimizer ensures financial viability and value
         
         Returns:
             Crew: Configured CrewAI crew ready for execution
@@ -127,3 +132,57 @@ class VacationPlanner():
             process=Process.sequential,
             verbose=True,
         )
+
+# --------------------------------------------------
+# ADD AGENTCORE ENTRYPOINT DECORATOR
+
+# Python decorator within the Bedrock AgentCore SDK.
+# Function to be executed by the runtime on an event (prompt)
+# # Creates webserver endpoints.
+# --------------------------------------------------
+
+@app.entrypoint
+def agent_invocation(payload, context):
+    """Handler for agent invocation"""
+    print(f'Payload: {payload}')
+    
+    try:
+        # Extract user input from payload
+        user_input = payload.get('topic', 'Tokyo, Japan')
+        print(f"Processing vacation destination: {user_input}")
+        
+        # Crew execution - Creates an instance of the VacationPlanner class and run crew method
+        research_crew_instance = VacationPlanner()
+        crew = research_crew_instance.crew()
+        
+        # Starts the sequential agent workflow
+        result = crew.kickoff(input={'topic': user_input})
+        
+        print("Context:\n----------------\n", context)
+        print("Result Raw:\n*************\n", result.raw)
+        
+        # Safely access json_dict if it exists
+        if hasattr(result, 'json_dict'):
+            print("Result JSON:\n***********\n", result.json_dict)
+        
+        return {"result": result.raw}
+    
+    except Exception as e:
+        print(f"Error ocurred: {e}")
+        return {"error": f"An error ocurred: {str(e)}"}
+
+# Local test function
+def test_local():
+    """Test the crew locally without Bedrock AgentCore"""
+    try:
+        crew_instance = VacationPlanner()
+        crew = crew_instance.crew()
+        result = crew.kickoff(input={'topic': 'Plan a vacation to Germany'})
+        print("Result:", result.raw)
+    except Exception as e:
+        print(f"Error: {e}")
+        return None
+
+if __name__ == "__main__":
+    # Run AgentCore server - HTTP server on port 8080
+    app.run()
