@@ -145,7 +145,7 @@ uv add boto3
 uv add streamlit
 ```
 
-### Running the Project
+### Running the Project locally
 
 **Option 1. Command Line Execution:**
 
@@ -159,6 +159,9 @@ crewai run
 source .venv/bin/activate
 streamlit run streamlit_ui.py
 ```
+
+### Bedrock AgentCore Guide
+- [AgentCore Guide](./src/vacation_planner/README.md)
 
 ## 📜 License
 
