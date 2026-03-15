@@ -115,6 +115,12 @@ From the AgentCore Service console, deploy your Agentic AI application using the
 
 ![Step 01](./assets/agentcore_runtime_setup/step_01.png)
 
+2. Place the next values in the `Agent or Tool details`:
+- **Name:** vacation-planner-agent
+- **Description - optional:** Provides detailed vacation plan for a tourist location.
+
+![Step 02](./assets/agentcore_runtime_setup/step_02.png)
+
 ---
 
 ### Step 7 – Test the Endpoint
