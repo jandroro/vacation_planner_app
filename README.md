@@ -6,8 +6,6 @@
 
 Gone are the days of spending countless hours researching destinations, comparing hotels, and planning daily activities. Our AI agents work collaboratively to handle the entire planning process—from initial research to creating detailed day-by-day itineraries—all while considering your unique travel style and requirements.
 
----
-
 ## 🚀 Project Objectives
 
 ### Primary Objective
@@ -53,6 +51,127 @@ The out-of-the-box architecture is shown above. The diagram illustrates the auth
 1. User login to the frontend (Cognito User Pool — Authorization Code grant): The user authenticates with Cognito via the web application hosted on AWS Amplify. Cognito issues a JWT access token for the session.
 2. Frontend to AgentCore Runtime (Cognito User Pool JWT validation): The frontend passes the user's JWT in the Authorization header. The Runtime validates the token against the Cognito User Pool.
 3. Frontend to API Gateway (Cognito User Pool JWT validation): API requests are authenticated using a Cognito User Pools Authorizer with the same user JWT from Flow 1.
+
+### Tech Stack
+
+- **Frontend**: React with TypeScript, Vite, Tailwind CSS, and shadcn components - infinitely flexible and ready for coding assistants.
+- **Agent Providers**: Multiple agent providers supported (Strands, LangGraph, etc.) running within AgentCore Runtime.
+- **Authentication**: AWS Cognito User Pool with OAuth support for easy swapping out Cognito.
+- **Infrastructure**: Terraform deployment with Amplify Hosting for frontend and AgentCore backend.
+
+## Project Structure
+
+```
+vacation_planner_app/
+├── .amazonq/               # Amazon Q assistant rules
+├── .github/                # GitHub Actions workflows
+│   └── workflows/
+├── docker/                 # Docker development environment
+│   ├── docker-compose.yml  # Local development stack
+│   └── Dockerfile.frontend.dev # Frontend development container
+├── frontend/               # React frontend application
+│   ├── src/
+│   │   ├── app/            # Application pages
+│   │   ├── components/     # React components (shadcn/ui)
+│   │   ├── hooks/          # Custom React hooks
+│   │   ├── lib/            # Utility libraries
+│   │   │   └── agentcore-client/ # AgentCore streaming client
+│   │   ├── routes/         # React Router routes
+│   │   ├── services/       # API service layers
+│   │   ├── styles/         # Global styles
+│   │   ├── test/           # Frontend tests
+│   │   └── types/          # TypeScript type definitions
+│   ├── public/             # Static assets
+│   ├── components.json     # shadcn/ui configuration
+│   ├── vite.config.ts      # Vite configuration
+│   └── package.json
+├── infra-cdk/              # CDK infrastructure code
+│   ├── lib/                # CDK stack definitions
+│   │   ├── utils/          # Shared CDK utilities
+│   │   ├── amplify-hosting-stack.ts
+│   │   ├── backend-stack.ts
+│   │   ├── cognito-stack.ts
+│   │   └── fast-main-stack.ts
+│   ├── bin/                # CDK app entry point
+│   ├── lambdas/            # Lambda function code
+│   │   ├── oauth2-provider/ # OAuth2 Credential Provider lifecycle
+│   │   ├── feedback/       # Feedback API handler
+│   │   └── zip-packager/   # Runtime ZIP packager
+│   └── config.yaml         # Deployment configuration
+├── infra-terraform/        # Terraform infrastructure (alternative to CDK)
+│   ├── modules/            # Terraform modules
+│   │   ├── amplify-hosting/ # Amplify Hosting module
+│   │   ├── cognito/        # Cognito User Pool module
+│   │   └── backend/        # Backend resources module
+│   ├── scripts/            # Terraform-specific deployment scripts
+│   ├── lambdas/            # Terraform-specific Lambda code
+│   ├── terraform.tfvars.example # Example variable file
+│   └── README.md           # Terraform deployment guide
+├── patterns/               # Agent pattern implementations
+│   ├── strands-single-agent/ # Basic strands agent pattern
+│   │   ├── basic_agent.py  # Agent implementation
+│   │   ├── strands_code_interpreter.py # Code Interpreter wrapper
+│   │   ├── requirements.txt # Agent dependencies
+│   │   └── Dockerfile      # Container configuration
+│   ├── langgraph-single-agent/ # LangGraph agent pattern
+│   │   ├── langgraph_agent.py # Agent implementation
+│   │   ├── requirements.txt # Agent dependencies
+│   │   └── Dockerfile      # Container configuration
+│   └── utils/              # Shared agent utilities
+│       ├── auth.py         # Authentication helpers
+│       └── ssm.py          # SSM parameter helpers
+├── tools/                  # Reusable tools (framework-agnostic)
+│   └── code_interpreter/   # AgentCore Code Interpreter integration
+│       └── code_interpreter_tools.py # Core implementation
+├── gateway/                # Gateway utilities and tools
+│   └── tools/              # Gateway tool implementations
+│       └── sample_tool/    # Example Gateway tool
+├── scripts/                # Deployment and utility scripts
+│   ├── deploy-frontend.py  # Cross-platform frontend deployment
+│   └── utils.py            # Shared script utilities
+├── test-scripts/           # Testing scripts
+│   ├── test-agent.py       # Agent testing
+│   ├── test-feedback-api.py # Feedback API testing
+│   ├── test-gateway.py     # Gateway testing
+│   └── test-memory.py      # Memory testing
+├── tests/                  # Test suite
+│   ├── unit/               # Unit tests
+│   ├── integration/        # Integration tests
+│   └── conftest.py         # Pytest configuration
+├── docs/                   # Documentation source files
+│   ├── architecture-diagram/ # Architecture diagrams
+│   ├── DEPLOYMENT.md       # Deployment guide
+│   ├── LOCAL_DEVELOPMENT.md # Local development guide
+│   ├── AGENT_CONFIGURATION.md # Agent setup guide
+│   ├── MEMORY_INTEGRATION.md # Memory integration guide
+│   ├── GATEWAY.md          # Gateway integration guide
+│   ├── RUNTIME_GATEWAY_AUTH.md # M2M authentication workflow
+│   ├── STREAMING.md        # Streaming implementation guide
+│   ├── TOOL_AC_CODE_INTERPRETER.md # Code Interpreter guide
+│   └── VERSION_BUMP_PLAYBOOK.md # Version management
+├── .mkdocs/                # MkDocs build configuration
+│   ├── mkdocs.yml          # MkDocs configuration
+│   ├── requirements.txt    # Documentation dependencies
+│   └── Makefile            # Build and deployment commands
+├── vibe-context/           # AI coding assistant context and rules
+│   ├── AGENTS.md           # Rules for AI assistants
+│   ├── coding-conventions.md # Code style guidelines
+│   └── development-best-practices.md # Development guidelines
+├── .kiro/                  # Kiro CLI configuration
+├── CHANGELOG.md            # Version history
+├── Makefile                # Project-level build commands
+└── README.md
+```
+
+## Security
+
+Note: this asset represents a proof-of-value for the services included and is not intended as a production-ready solution. You must determine how the AWS Shared Responsibility applies to their specific use case and implement the needed controls to achieve their desired security outcomes.
+
+Ultimately it is your responsibility as the developer of a full stack application to ensure all of its aspects are secure. We provide security best practices in repository documentation and provide a secure baseline but Amazon holds no responsibility for the security of applications built from this tool.
+
+## License
+
+This project is licensed under the Apache-2.0 License.
 
 ---
 
