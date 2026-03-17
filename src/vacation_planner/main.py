@@ -43,42 +43,9 @@ def get_comprehensive_inputs():
     
     inputs['topic'] = input("Destination name (e.g., Lima, London, etc): ").strip() or "Lima"
     
-    destination_types = [
-        "beach", "mountain", "city", "cultural", "adventure", 
-        "relaxation", "nature", "historical", "mixed"
-    ]
-    print(f"Available types: {', '.join(destination_types)}")
-    inputs['destination_type'] = input("Destination type (e.g., beach, mountain, city): ").strip() or "beach"
-    
-    # Duration
-    print("\n📅 TRIP DURATION")
-    print("-" * 70)
-    inputs['duration'] = input("Trip duration (e.g., 7 days, 2 weeks): ").strip() or "7 days"
-    
-    # Travel dates
-    print("\n🗓️  TRAVEL DATES")
-    print("-" * 70)
-    inputs['travel_dates'] = input("Preferred travel dates (e.g., June 2025, Summer 2025): ").strip() or "flexible"
-    
-    # Personal interests
-    print("\n🎯 INTERESTS & PREFERENCES")
-    print("-" * 70)
-    print("Examples: snorkeling, local cuisine, museums, hiking, photography, nightlife")
-    inputs['interests'] = input("Your interests: ").strip() or "local cuisine, sightseeing, relaxation"
-    
-    # Travel style
-    print("\n🎨 TRAVEL STYLE")
-    print("-" * 70)
-    styles = ["relaxed", "moderate", "packed", "luxury", "budget-friendly", "adventurous"]
-    print(f"Available styles: {', '.join(styles)}")
-    inputs['travel_style'] = input("Travel style: ").strip() or "moderate"
-    
     # Summary
     print("\n" + "="*70)
     print("📋 PLANNING SUMMARY")
-    print("="*70)
-    for key, value in inputs.items():
-        print(f"  {key.replace('_', ' ').title()}: {value}")
     print("="*70 + "\n")
     
     confirm = input("Proceed with vacation planning? (yes/no): ").strip().lower()
@@ -101,25 +68,13 @@ def run():
     # Get user inputs
     inputs = get_comprehensive_inputs()
     
-    # inputs = {
-    #     'topic': 'Lima',
-    #     'destination_type': 'beach',
-    #     'duration': '7 days',
-    #     'travel_dates': 'June 2025',
-    #     'interests': 'snorkeling, local cuisine, relaxation, photography',
-    #     'dietary_restrictions': 'none',
-    #     'accessibility_needs': 'none',
-    #     'travel_style': 'moderate'
-    # }
-    
     print("\n🤖 Activating AI Agents...")
     print("  ✓ Vacation Research Specialist")
-    print("  ✓ Vacation Planning Architect")
+    print("  ✓ Vacation Itinerary Planner")
     
-    print("\n⏳ Planning your perfect vacation... This may take 5-10 minutes.")
+    print("\n⏳ Planning your perfect vacation... This may take 1-5 minutes.")
     print("   The agents are working hard to:")
     print("   • Research destinations and gather real-time information")
-    print("   • Create optimized day-by-day itineraries")
     print("   • Add authentic local experiences")
     print("   • Optimize your budget for maximum value")
 
@@ -162,12 +117,7 @@ def train():
         filename: File to save training results
     """
     inputs = {
-        'topic': 'Lima',
-        'destination_type': 'beach',
-        'duration': '7 days',
-        'travel_dates': 'flexible',
-        'interests': 'water sports, local cuisine',
-        'travel_style': 'moderate'
+        'topic': 'Lima'
     }
     
     try:
@@ -209,12 +159,7 @@ def test():
         model_name: Model to use for testing
     """
     inputs = {
-        'topic': 'Lima',
-        'destination_type': 'city',
-        'duration': '5 days',
-        'travel_dates': 'Spring 2025',
-        'interests': 'museums, food tours, architecture',
-        'travel_style': 'relaxed'
+        'topic': 'Lima'
     }
     
     try:

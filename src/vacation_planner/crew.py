@@ -2,7 +2,7 @@ import os
 
 from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task
-from crewai_tools import SerperDevTool, ScrapeWebsiteTool, WebsiteSearchTool
+from crewai_tools import SerperDevTool
 
 # --------------------------------------------------
 # AGENTCORE IMPORTS
@@ -43,12 +43,6 @@ class VacationPlanner():
         self.serper_tool = SerperDevTool(
             api_key=os.getenv('SERPER_API_KEY', '')
         )
-        
-        # Website scraping for detailed information
-        self.scrape_tool = ScrapeWebsiteTool()
-        
-        # Website search for finding specific information on sites
-        self.website_search_tool = WebsiteSearchTool()
     
     @agent
     def vacation_researcher(self) -> Agent:
@@ -62,31 +56,27 @@ class VacationPlanner():
         return Agent(
             config=self.agents_config['vacation_researcher'],
             llm=self.llm,
-            tools=[
-                self.serper_tool,
-                self.scrape_tool,
-                self.website_search_tool
-            ],
+            tools=[self.serper_tool],
             verbose=True,
         )
 
     @agent
-    def vacation_planner(self) -> Agent:
+    def itinerary_planner(self) -> Agent:
         """
-        Expert Vacation Planning Architect Agent
-        
+        Itinerary Planner Agent
+
         Transforms research into optimized, actionable itineraries that eliminate
         the need for expensive travel agents through intelligent scheduling and
         budget optimization.
         """
         return Agent(
-            config=self.agents_config['vacation_planner'],
+            config=self.agents_config['itinerary_planner'],
             llm=self.llm,
             verbose=True,
         )
 
     @task
-    def destination_research(self) -> Task:
+    def research_task(self) -> Task:
         """
         Comprehensive Destination Research Task
         
@@ -94,11 +84,11 @@ class VacationPlanner():
         destinations, attractions, accommodations, and practical travel details.
         """
         return Task(
-            config=self.tasks_config['destination_research'],
+            config=self.tasks_config['research_task'],
         )
     
     @task
-    def itinerary_creation(self) -> Task:
+    def reporting_task(self) -> Task:
         """
         Intelligent Itinerary Generation Task
         
@@ -107,7 +97,8 @@ class VacationPlanner():
         time estimates and transportation options.
         """
         return Task(
-            config=self.tasks_config['itinerary_creation'],
+            config=self.tasks_config['reporting_task'],
+            output_file='report.md'
         )
 
     @crew
@@ -156,7 +147,7 @@ def agent_invocation(payload, context):
         crew = research_crew_instance.crew()
         
         # Starts the sequential agent workflow
-        result = crew.kickoff(input={'topic': user_input})
+        result = crew.kickoff(inputs={'topic': user_input})
         
         print("Context:\n----------------\n", context)
         print("Result Raw:\n*************\n", result.raw)
@@ -177,7 +168,7 @@ def test_local():
     try:
         crew_instance = VacationPlanner()
         crew = crew_instance.crew()
-        result = crew.kickoff(input={'topic': 'Plan a vacation to Germany'})
+        result = crew.kickoff(inputs={'topic': 'Plan a vacation to Germany'})
         print("Result:", result.raw)
     except Exception as e:
         print(f"Error: {e}")
@@ -185,4 +176,4 @@ def test_local():
 
 if __name__ == "__main__":
     # Run AgentCore server - HTTP server on port 8080
-    app.run()
+    app.run(port=8080)

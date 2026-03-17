@@ -116,7 +116,7 @@ From the AgentCore Service console, deploy your Agentic AI application using the
 ![Step 01](./assets/agentcore_runtime_setup/step_01.png)
 
 2. Place the next values in the `Agent or Tool details` section:
-- **Name:** vacation-planner-agent
+- **Name:** vacation_planner_agent
 - **Description - optional:** Provides detailed vacation plan for a tourist location.
 
 ![Step 02](./assets/agentcore_runtime_setup/step_02.png)
@@ -133,7 +133,7 @@ From the AgentCore Service console, deploy your Agentic AI application using the
 
 ![Step 05](./assets/agentcore_runtime_setup/step_05.png)
 
-6. In the `Security` section, select the `Public` option. Then click `Host agent/tool` button.
+6. In the `Security` section, select the `Public` option. Complete the environment variables values and then click `Host agent/tool` button.
 **Note:** For demonstration purposes, we have chosen this option; however, for production environments, it is best to select the `VPC (Virtual Private Cloud)` option.
 
 ![Step 06](./assets/agentcore_runtime_setup/step_06.png)
@@ -146,7 +146,7 @@ Send a test request to your deployed endpoint:
 
 ```json
 {
-  "topic": "Plan a vacation to Bali, Indonesia"
+  "topic": "Bali, Indonesia"
 }
 ```
 

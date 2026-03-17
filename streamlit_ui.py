@@ -6,7 +6,7 @@ a beautiful, user-friendly web interface.
 """
 
 import streamlit as st
-from vacation_planner.crew import VacationPlanner
+from src.vacation_planner.crew import VacationPlanner
 import os
 from dotenv import load_dotenv
 from datetime import datetime
@@ -85,67 +85,6 @@ with st.sidebar:
             placeholder="e.g., Lima, Paris, Tokyo",
             help="Enter any city or country you'd like to explore!"
         )
-        
-        destination_type = st.selectbox(
-            "Destination Type",
-            ["Beach", "Mountain", "City", "Cultural", "Adventure", 
-             "Relaxation", "Nature", "Historical", "Mixed"],
-            help="Select the type of destination you're interested in"
-        )
-    
-    with st.expander("📅 Duration", expanded=True):
-        duration_days = st.slider(
-            "Trip Duration (days)",
-            min_value=3,
-            max_value=30,
-            value=7,
-            help="Number of days for your vacation"
-        )
-        
-        duration = f"{duration_days} days"
-    
-    with st.expander("📅 Travel Dates", expanded=True):
-        date_preference = st.radio(
-            "Date Flexibility",
-            ["Flexible", "Specific Dates", "Season/Month"]
-        )
-        
-        if date_preference == "Specific Dates":
-            travel_dates = st.date_input(
-                "Select Travel Dates",
-                help="Choose your preferred travel dates"
-            )
-            travel_dates = travel_dates.strftime("%B %Y") if travel_dates else "flexible"
-        elif date_preference == "Season/Month":
-            travel_dates = st.selectbox(
-                "Preferred Season/Month",
-                ["Spring", "Summer", "Fall", "Winter",
-                 "January", "February", "March", "April", "May", "June",
-                 "July", "August", "September", "October", "November", "December"]
-            )
-        else:
-            travel_dates = "flexible"
-    
-    with st.expander("🎨 Interests & Style", expanded=True):
-        interests_options = st.multiselect(
-            "Your Interests",
-            ["Snorkeling", "Diving", "Hiking", "Photography", "Local Cuisine",
-             "Fine Dining", "Museums", "Art Galleries", "Shopping", "Nightlife",
-             "Beach Relaxation", "Spa & Wellness", "Adventure Sports", "Wildlife",
-             "Cultural Tours", "Historical Sites", "Water Sports", "Cycling",
-             "Wine Tasting", "Cooking Classes"],
-            default=["Local Cuisine", "Photography", "Beach Relaxation"],
-            help="Select all that apply"
-        )
-        
-        interests = ", ".join([i.lower() for i in interests_options]) if interests_options else "sightseeing, relaxation"
-        
-        travel_style = st.select_slider(
-            "Travel Style",
-            options=["Budget-Friendly", "Moderate", "Comfortable", "Luxury"],
-            value="Moderate",
-            help="How would you describe your travel style?"
-        )
     
     st.markdown("---")
     
@@ -153,11 +92,6 @@ with st.sidebar:
     st.markdown("### 📋 Planning Summary")
     st.markdown(f"""
     - **Destination Name:** {destination_name or "Lima"}
-    - **Destination Type:** {destination_type}
-    - **Duration:** {duration}
-    - **Dates:** {travel_dates}
-    - **Interests:** {interests.lower()}
-    - **Travel Style:** {travel_style.lower()}
     """)
 
 # Main content area
@@ -171,7 +105,7 @@ with col1:
         <h4>How It Works:</h4>
         <ol>
             <li><b>Research Specialist</b> gathers real-time destination information</li>
-            <li><b>Planning Architect</b> creates your optimized itinerary</li>
+            <li><b>Itinerary Planner</b> creates your optimized itinerary</li>
         </ol>
         <p><b>⏱️ Planning typically takes 1-5 minutes</b></p>
     </div>
@@ -183,90 +117,92 @@ with col1:
         # Prepare inputs
         inputs = {
             'topic': destination_name or "Lima",
-            'destination_type': destination_type.lower(),
-            'duration': duration,
-            'travel_dates': travel_dates,
-            'interests': interests,
-            'travel_style': travel_style.lower()
         }
         
         # Create progress indicators
         progress_bar = st.progress(0)
         status_text = st.empty()
         
-        try:
-            # Initialize crew
-            status_text.text("🤖 Initializing AI agents...")
-            progress_bar.progress(10)
+        #try:
+        # Initialize crew
+        status_text.text("🤖 Initializing AI agents...")
+        progress_bar.progress(10)
+        
+        vacation_planner = VacationPlanner()
+        crew = vacation_planner.crew()
+        
+        # Research phase
+        status_text.text("🔍 Research Specialist gathering destination information...")
+        progress_bar.progress(25)
+        
+        # Planning phase
+        status_text.text("📋 Itinerary Planner creating your itinerary...")
+        progress_bar.progress(50)
+        
+        # Execute crew
+        with st.spinner("AI agents working collaboratively..."):
+            result = crew.kickoff(inputs=inputs)
+        
+        # Print result for debugging
+        print(result)
+        if result is None:
+            st.error("❌ No result generated. Please check your inputs and try again.")
+            st.stop()
+        
+        progress_bar.progress(100)
+        status_text.text("✅ Vacation plan complete!")
+        
+        # Success message
+        st.markdown("""
+        <div class="success-box">
+            <h3>🎉 Your Personalized Vacation Plan is Ready!</h3>
+            <p>Our AI agents have created a comprehensive plan tailored specifically for you.</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Save results
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        output_file = f"vacation_plan_{timestamp}.md"
+        
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write(str(result))
+        
+        # Display results in tabs
+        tab1, tab2 = st.tabs(["📄 Full Itinerary", "📥 Download"])
+        
+        with tab1:
+            st.markdown("### Your Complete Vacation Plan")
+            st.markdown(result)
+        
+        with tab2:
+            st.markdown("### 📥 Download Your Plan")
             
-            crew = VacationPlanner().crew()
+            # Download button for main plan
+            with open(output_file, 'r', encoding='utf-8') as f:
+                plan_content = f.read()
             
-            # Research phase
-            status_text.text("🔍 Research Specialist gathering destination information...")
-            progress_bar.progress(25)
+            st.download_button(
+                label="📄 Download Full Itinerary (Markdown)",
+                data=plan_content,
+                file_name=output_file,
+                mime="text/markdown"
+            )
             
-            # Planning phase
-            status_text.text("📋 Planning Architect creating your itinerary...")
-            progress_bar.progress(50)
+            st.success(f"✅ Files saved locally: {output_file}")
             
-            # Execute crew
-            with st.spinner("AI agents working collaboratively..."):
-                result = crew.kickoff(inputs=inputs)
+        # except Exception as e:
+        #     st.error(f"❌ Error generating vacation plan: {str(e)}")
+        #     st.markdown("""
+        #     ### Troubleshooting Tips:
+        #     - ✅ Check your AWS credentials are configured
+        #     - ✅ Verify Bedrock model access in AWS Console
+        #     - ✅ Ensure SERPER_API_KEY is set in .env file
+        #     - ✅ Check your internet connection
+        #     - ✅ Review CloudWatch logs for detailed errors
+        #     """)
             
-            progress_bar.progress(100)
-            status_text.text("✅ Vacation plan complete!")
-            
-            # Success message
-            st.markdown("""
-            <div class="success-box">
-                <h3>🎉 Your Personalized Vacation Plan is Ready!</h3>
-                <p>Our AI agents have created a comprehensive plan tailored specifically for you.</p>
-            </div>
-            """, unsafe_allow_html=True)
-            
-            # Save results
-            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-            output_file = f"vacation_plan_{timestamp}.md"
-            
-            with open(output_file, 'w', encoding='utf-8') as f:
-                f.write(str(result))
-            
-            # Display results in tabs
-            tab1, tab2 = st.tabs(["📄 Full Itinerary", "📥 Download"])
-            
-            with tab1:
-                st.markdown("### Your Complete Vacation Plan")
-                st.markdown(result)
-            
-            with tab2:
-                st.markdown("### 📥 Download Your Plan")
-                
-                # Download button for main plan
-                with open(output_file, 'r', encoding='utf-8') as f:
-                    plan_content = f.read()
-                
-                st.download_button(
-                    label="📄 Download Full Itinerary (Markdown)",
-                    data=plan_content,
-                    file_name=output_file,
-                    mime="text/markdown"
-                )
-                
-                st.success(f"✅ Files saved locally: {output_file}")
-            
-        except Exception as e:
-            st.error(f"❌ Error generating vacation plan: {str(e)}")
-            st.markdown("""
-            ### Troubleshooting Tips:
-            - ✅ Check your AWS credentials are configured
-            - ✅ Verify Bedrock model access in AWS Console
-            - ✅ Ensure SERPER_API_KEY is set in .env file
-            - ✅ Check your internet connection
-            - ✅ Review CloudWatch logs for detailed errors
-            """)
-            
-            with st.expander("🔍 Error Details"):
-                st.code(str(e))
+        #     with st.expander("🔍 Error Details"):
+        #         st.code(str(e))
 
 with col2:
     st.markdown("### 💡 Travel Planning Tips")

@@ -1,11 +1,8 @@
-# 🌴 AI-Powered Vacation Planner
-## Your Personal Travel Companion Powered by Amazon Bedrock
-
----
+# 🌴 AI-Powered Vacation Planner: Your Personal Travel Companion Powered by Amazon Bedrock AgentCore
 
 ## 🎯 Project Overview
 
-**AI-Powered Vacation Planner** is an intelligent, autonomous travel planning application that leverages cutting-edge artificial intelligence to transform the way people plan their dream vacations. By combining the power of **Amazon Bedrock's Nova Pro model** with **CrewAI's multi-agent orchestration** and **Amazon Bedrock AgentCore capabilities**, this application delivers personalized, comprehensive vacation itineraries tailored to individual preferences, budgets, and interests.
+**AI-Powered Vacation Planner** is an intelligent, autonomous travel planning application that leverages cutting-edge artificial intelligence to transform the way people plan their dream vacations. By combining the power of **Amazon Bedrock's models** with **Multi-agent orchestration tools** and **Amazon Bedrock AgentCore capabilities**, this application delivers personalized, comprehensive vacation itineraries tailored to individual preferences, budgets, and interests.
 
 Gone are the days of spending countless hours researching destinations, comparing hotels, and planning daily activities. Our AI agents work collaboratively to handle the entire planning process—from initial research to creating detailed day-by-day itineraries—all while considering your unique travel style and requirements.
 
@@ -44,11 +41,18 @@ Create an intuitive, AI-driven application that simplifies vacation planning by 
    - Provide interactive, conversational AI interactions
    - Enable easy modifications and refinements to plans
 
----
+## ⚙️ User Setup
 
-## 🏗️ Technical Architecture
+See [`infra-terraform/README.md`](infra-terraform/README.md) for the Terraform deployment guide.
 
-Here it will be the architecture diagram...
+## 🏗️ Architecture
+
+![Architecture Diagram](docs/architecture-diagram/architecture.png)
+
+The out-of-the-box architecture is shown above. The diagram illustrates the authentication flows across the stack:
+1. User login to the frontend (Cognito User Pool — Authorization Code grant): The user authenticates with Cognito via the web application hosted on AWS Amplify. Cognito issues a JWT access token for the session.
+2. Frontend to AgentCore Runtime (Cognito User Pool JWT validation): The frontend passes the user's JWT in the Authorization header. The Runtime validates the token against the Cognito User Pool.
+3. Frontend to API Gateway (Cognito User Pool JWT validation): API requests are authenticated using a Cognito User Pools Authorizer with the same user JWT from Flow 1.
 
 ---
 
